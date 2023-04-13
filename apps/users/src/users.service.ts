@@ -18,7 +18,6 @@ export class UsersService {
   }
 
 
-  @EventPattern('event_test')
   async testEvent(@Payload() data: any, @Ctx() context: RmqContext) {
     this.logger.debug(data, context)
     this.rmqService.ack(context)

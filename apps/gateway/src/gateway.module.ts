@@ -10,7 +10,7 @@ import { AuthModule } from 'apps/auth/src/auth.module';
 
 @Module({
   // imports: [PrismaModule, RmqModule.register({ name: TODO_SERVICE }), RmqModule.register({ name: USER_SERVICE }), ConfigModule.forRoot()],
-  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, RmqModule.register({ name: USER_SERVICE }), AuthModule, UsersModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, RmqModule.register({ name: 'USER' }), AuthModule, UsersModule],
   controllers: [GatewayController],
   providers: [GatewayService],
 })
