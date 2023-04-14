@@ -1,28 +1,33 @@
-# Use postgres/example user/password credentials
 version: '3.1'
 
 services:
-
+  gateway:
+    build:
+      context: .
+      dockerfile: ./apps/gateway/Dockerfile
+      target: development
+    command: npm run start:dev gateway
+    env_file:
+      - ./apps/gateway/.env
+    depends_on:
+      - db
+      - rabbitmq
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '3000:3000'
   db:
     image: postgres:15.2
     restart: always
     environment:
-      POSTGRES_USER: todo-user 
-      POSTGRES_PASSWORD: todo-password 
-      POSTGRES_DB: todo-db 
+      POSTGRES_USER: todo-user
+      POSTGRES_PASSWORD: todo-password
+      POSTGRES_DB: todo-db
     ports:
       - 5432:5432
   rabbitmq:
     image: rabbitmq:3-management-alpine
     ports:
-        - 5672:5672
-        - 15672:15672
-    # volumes:
-        # - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-        # - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-
-  # adminer:
-  #   image: adminer
-  #   restart: always
-  #   ports:
-  #     - 8080:8080
+      - 5672:5672
+      - 15672:15672
