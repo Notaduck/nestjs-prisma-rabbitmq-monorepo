@@ -16,7 +16,7 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - '3000:3000'
+      - '3000:3001'
   db:
     image: postgres:15.2
     restart: always
