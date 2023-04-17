@@ -12,11 +12,27 @@ services:
     depends_on:
       - db
       - rabbitmq
+      # - todo
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - '3000:3001'
+      - '3001:3001'
+      - '5555:5555'
+  user:
+    build:
+      context: .
+      dockerfile: ./apps/user/Dockerfile
+      target: development
+    command: npm run start:dev user
+    env_file:
+      - ./apps/user/.env
+    depends_on:
+      - db
+      - rabbitmq
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
   db:
     image: postgres:15.2
     restart: always

@@ -9,6 +9,17 @@ export class GatewayController {
     @Inject(USER_SERVICE) private userClient: ClientProxy,
   ) { }
 
+  @Get('/hell')
+  getO() {
+
+
+    this.userClient.emit('event_test', {
+      message: 'YOLO',
+    })
+
+    return 'o'
+  }
+
   @Get()
   async getHello() {
 
